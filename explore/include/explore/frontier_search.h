@@ -10,7 +10,7 @@ namespace frontier_exploration
  *
  */
 struct Frontier {
-  std::uint32_t size;
+  std::uint32_t size;  
   double min_distance;
   double cost;
   geometry_msgs::msg::Point initial;
@@ -75,7 +75,9 @@ protected:
    * @param frontier frontier for which compute the cost
    * @return cost of the frontier
    */
-  double frontierCost(const Frontier& frontier);
+
+  // EDIT : max_distance
+  double frontierCost(const Frontier& frontier, double max_distance);
 
 private:
   nav2_costmap_2d::Costmap2D* costmap_;

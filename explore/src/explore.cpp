@@ -40,6 +40,7 @@
 
 #include <thread>
 
+// two point distance
 inline static bool same_point(const geometry_msgs::msg::Point& one,
                               const geometry_msgs::msg::Point& two)
 {
@@ -213,6 +214,7 @@ void Explore::visualizeFrontiers(
     m.type = visualization_msgs::msg::Marker::SPHERE;
     m.id = int(id);
     m.pose.position = frontier.initial;
+    
     // scale frontier according to its cost (costier frontiers will be smaller)
     double scale = std::min(std::abs(min_cost * 0.4 / frontier.cost), 0.5);
     m.scale.x = scale;

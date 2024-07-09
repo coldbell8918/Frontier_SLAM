@@ -52,7 +52,7 @@ FrontierSearch::searchFrom(geometry_msgs::msg::Point position)
   std::queue<unsigned int> bfs;
 
   // find closest clear cell to start search
-  // Need Edit this code
+  
   unsigned int clear, pos = costmap_->getIndex(mx, my);
   if (nearestCell(clear, pos, FREE_SPACE, *costmap_)) {
     bfs.push(clear);
@@ -89,7 +89,6 @@ FrontierSearch::searchFrom(geometry_msgs::msg::Point position)
     }
   }
 
-  // EDIT
   double max_distance = 0;
 
   // set max distance
@@ -99,10 +98,9 @@ FrontierSearch::searchFrom(geometry_msgs::msg::Point position)
     }
   }
 
-
   // set costs of frontiers
   for (auto& frontier : frontier_list) {
-    frontier.cost = frontierCost(frontier, max_distance); // EDIT : max_distance
+    frontier.cost = frontierCost(frontier, max_distance);
   }
   std::sort(
       frontier_list.begin(), frontier_list.end(),
@@ -121,6 +119,7 @@ Frontier FrontierSearch::buildNewFrontier(unsigned int initial_cell,
   output.centroid.y = 0;
   output.size = 1;
   output.min_distance = std::numeric_limits<double>::infinity();
+
 
   // record initial contact point for frontier
   unsigned int ix, iy;
@@ -205,11 +204,9 @@ bool FrontierSearch::isNewFrontierCell(unsigned int idx,
   return false;
 }
 
-
-// EDIT: frontiercost
 double FrontierSearch::frontierCost(const Frontier& frontier, double max_distance)
 {
-  return (frontier.size * costmap_->getResolution() / 50.2654)-
-          (gain_scale_ * frontier.min_distance * costmap_->getResolution() / max_distance);
+  return (frontier.min_distance * costmap_->getResolution() / max_distance) -
+         (gain_scale_ * frontier.size * costmap_->getResolution() / 50.2654);
 }
 }  // namespace frontier_exploration

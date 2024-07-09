@@ -81,6 +81,7 @@ add_executable(explore
   src/costmap_client.cpp
   src/explore.cpp
   src/frontier_search.cpp
+  # src/new_frontier_search.cpp
 )
 
 target_include_directories(explore PUBLIC
